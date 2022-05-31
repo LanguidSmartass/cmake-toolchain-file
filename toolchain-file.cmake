@@ -37,17 +37,17 @@ message (
 
 
 if (NOT cmake-toolchain-root)
-    message(FATAL_ERROR "'-Dcmake-toolchain-root' option not passed to cmake")
+    message (FATAL_ERROR "'-Dcmake-toolchain-root' option not passed to cmake")
 endif()
 
 
 if (DEFINED ENV{${cmake-toolchain-root}})
-    message(STATUS "'-Dcmake-toolchain-root' is an environment variable name")
+    message (STATUS "'-Dcmake-toolchain-root' is an environment variable name")
 endif()
 
 
-# try interpret the 'toolchain-root' as an environment variable name
 if (NOT EXISTS ${cmake-toolchain-root})
+    # try interpret the 'toolchain-root' as an environment variable name
     set (cmake-toolchain-root $ENV{${cmake-toolchain-root}})
 endif ()
 
