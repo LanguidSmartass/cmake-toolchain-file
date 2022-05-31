@@ -21,33 +21,70 @@
 # #      can be just an empty string ""
 # -Dcmake-toolchain-prefix="toolchain-prefix"
 # # arg, full path to your toolchain
-# -Dcmake-toolchain-root:PATH="/path/to/your/toolchain"
+# -Dcmake-toolchain-root="/path/to/your/toolchain" # or
+# # name of the environment variable that contains the path mentioned
+# -Dcmake-toolchain-root="TOOLCHAIN_PATH"
 #
 # Also, '--toolchain' and '-DCMAKE_TOOLCHAIN_FILE=' are equivalent
 # cmake option expressions
+#
+##
+
+message (
+    STATUS
+"Configuring custom toolchain"
+)
 
 
-if(NOT $ENV{cmake-toolchain-root})
-    message(WARNING "To use this toolchain file you should specify 'cmake-toolchain-root' variable")
+if (NOT cmake-toolchain-root)
+    message(FATAL_ERROR "'-Dcmake-toolchain-root' option not passed to cmake")
 endif()
 
-if(NOT $ENV{cmake-toolchain-prefix})
-    message(WARNING "You should probably define a 'cmake-toolchain-prefix' variable as well")
+
+if (DEFINED ENV{${cmake-toolchain-root}})
+    message(STATUS "'-Dcmake-toolchain-root' is an environment variable name")
 endif()
 
 
-if(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
+# try interpret the 'toolchain-root' as an environment variable name
+if (NOT EXISTS ${cmake-toolchain-root})
+    set (cmake-toolchain-root $ENV{${cmake-toolchain-root}})
+endif ()
 
-    set(CMAKE_FIND_ROOT_PATH  ${cmake-toolchain-root})
-    set(ext-exe ".exe")
+
+# check again
+if (NOT EXISTS ${cmake-toolchain-root})
+    message (
+        FATAL_ERROR
+"cmake-toolchan-root expands to: '${cmake-toolchain-root}'
+To use this toolchain file you must specify 'cmake-toolchain-root' variable:
+it must be either a string containing a full path to the toolchain or
+a name of an environment variable that contains the mentioned path"
+    )
+endif ()
+
+
+if (NOT cmake-toolchain-prefix)
+    message (
+        WARNING
+"You should probably define a 'cmake-toolchain-prefix' variable as well"
+    )
+endif ()
+
+
+set (CMAKE_FIND_ROOT_PATH  ${cmake-toolchain-root})
+
+
+if (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
+
+    set (ext-exe ".exe")
 
 elseif(
        (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Linux")
     OR (${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Datwin")
 )
 
-    set(CMAKE_FIND_ROOT_PATH  ${cmake-toolchain-root})
-    set(ext-exe "")
+    set (ext-exe "")
 
 else()
 
@@ -113,4 +150,5 @@ unset(objdump)
 unset(size)
 unset(gdb)
 unset(readelf)
+
 

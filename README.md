@@ -15,7 +15,10 @@ cmake
 #      can be just an empty string ""
 -Dcmake-toolchain-prefix="toolchain-prefix"
 # arg, full path to your toolchain
--Dcmake-toolchain-root:PATH="/path/to/your/toolchain"
+-Dcmake-toolchain-root="/path/to/your/toolchain" # or
+# name of the environment variable that contains the path mentioned
+-Dcmake-toolchain-root="TOOLCHAIN_PATH"
+#
 # Also, '--toolchain' and '-DCMAKE_TOOLCHAIN_FILE=' are equivalent
 # cmake option expressions
 ```

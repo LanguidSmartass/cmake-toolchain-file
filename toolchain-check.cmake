@@ -1,13 +1,17 @@
 #include(doxygen.cmake)
 
-function(toolchain_check)
-    message("====>>>> Entering the main CMakeLists.txt file (where the project() command is invoked)")
-    message("         Detected compilers and tools:")
-    message("         C        : ${CMAKE_C_COMPILER}")
-    message("         C++      : ${CMAKE_CXX_COMPILER}")
-    message("         Archiver : ${CMAKE_AR}")
-    message("         Objcopy  : ${CMAKE_OBJCOPY}")
-    message("         Objdump  : ${CMAKE_OBJDUMP}")
-    message("         Size tool: ${CMAKE_SIZE}")
-    message("         GDB      : ${CMAKE_GDB}")
-endfunction()
+function (toolchain_check)
+    message(
+        STATUS
+"toolchain_check():
+ Detected compilers and tools:
+ C        : ${CMAKE_C_COMPILER}
+ C++      : ${CMAKE_CXX_COMPILER}
+ Archiver : ${CMAKE_AR}
+ Objcopy  : ${CMAKE_OBJCOPY}
+ Objdump  : ${CMAKE_OBJDUMP}
+ Size tool: ${CMAKE_SIZE}
+ GDB      : ${CMAKE_GDB}
+"
+    )
+endfunction ()
