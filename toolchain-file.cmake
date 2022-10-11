@@ -125,7 +125,7 @@ set(size      ${tc-prefix}size${ext-exe}      )#PARENT_SCOPE)
 #set(CMAKE_CROSSCOMPILING   TRUE)
 # this is a name of a target system,
 # not a host on which the cmake and build takes place
-set (CMAKE_SYSTEM_NAME Generic )#PARENT_SCOPE)
+set (CMAKE_SYSTEM_NAME ${cmake-toolchain-system})#PARENT_SCOPE)
 
 
 # without setting CMAKE_TRY_COMPILE_TARGET_TYPE to STATIC_LIBRARY
