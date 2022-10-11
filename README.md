@@ -18,6 +18,8 @@ cmake
 -Dcmake-toolchain-root="/path/to/your/toolchain" # or
 # name of the environment variable that contains the path mentioned
 -Dcmake-toolchain-root="TOOLCHAIN_PATH"
+# Target system name, sets CMAKE_SYSTEM_NAME variable -- Linux, Windows, Generic
+-Dcmake-toolchain-system="TargetSystemName"
 #
 # Also, '--toolchain' and '-DCMAKE_TOOLCHAIN_FILE=' are equivalent
 # cmake option expressions
